@@ -431,6 +431,42 @@ def compareTarget(data, target, compare):
 
   plt.show()
 
+def makeHotEncodeDummyCols(data, columnList):
+  all_dummy_cols = pd.DataFrame()
+  print('')
+  print('===============')
+  print('Making Hot Encoded Dummy Columns')
+  print('===============')
+  for col in columnList:
+    print('')
+    print(f'Dummy column suffixes for column {col}_x:')
+    unique = data[col].unique()
+    print(unique)
+    for value in unique:
+      unique_col_name = f'{col}_{value}'
+      all_dummy_cols[unique_col_name] = np.where(data[col] == value, 1, 0)
+    print('---------------')
+  print('')
+  print('===============')
+  print('Table Head of Hot Encoded Dummy Columns')
+  print('===============')
+  return all_dummy_cols
+
+def makeHotYesNoCols(data, yes_no_cols):
+  all_dummy_cols = pd.DataFrame()
+  print('')
+  print('===============')
+  print('Making Hot Encoded Yes/No Columns')
+  print('===============')
+  for col in yes_no_cols:
+    print('')
+    print(f'Hot encoding Yes/No from {col}:')
+    all_dummy_cols[col] = np.where(data[col] == 'Yes', 1, np.where(data[col] == 'YES', 1, np.where(data[col] == 'Y', 1, np.where(data[col] == 'y', 1, 0))))
+  unique = data[col].value_counts()
+  unique_dummy = all_dummy_cols.value_counts()
+  display(unique, unique_dummy)
+  return all_dummy_cols
+
 """# DSML Global Functions 06 - Clustering
 
 ## KMeans (number columns only)
