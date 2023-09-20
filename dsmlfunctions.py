@@ -9,6 +9,8 @@ Original file is located at
 # DSML Global Functions 01 - Data Details (info, describe, columns, etc.)
 """
 
+# Commented out IPython magic to ensure Python compatibility.
+# %capture
 # Installing SHAP dependency
 # When importing this file as PY library, install this before importing lib
 # !pip install shap
@@ -19,6 +21,24 @@ Original file is located at
 # Install Numerize to display large numbers in readable format
 # When importing this file as PY library, install this before importing lib
 # !pip install numerize
+
+# Installing SHAP from PY file for functions
+
+import subprocess
+import sys
+
+def install(package):
+  subprocess.check_call([sys.executable, "-m", "pip", "install", package])
+
+install('shap')
+
+import shap                         # SHapley Additive exPlanations (SHAP) for Model debugging
+
+# Installing Numerize to make large numbers human readable
+
+install('numerize')
+
+from numerize import numerize     # Library to display large numbers in readable format
 
 # Commented out IPython magic to ensure Python compatibility.
 # Used to ignore the warning given as output of the code
@@ -52,9 +72,6 @@ import math
 
 # Importing packages that need to be installed to Google Colab
 # Comment out imports for importing notebook as PY file
-
-# import shap                     # SHapley Additive exPlanations (SHAP) for Model debugging
-# from numerize import numerize     # Library to display large numbers in readable format
 
 # Progress bar for loops
 #for item in progress_bar(my_list):
