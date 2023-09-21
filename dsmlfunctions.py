@@ -9,20 +9,7 @@ Original file is located at
 # DSML Global Functions 01 - Data Details (info, describe, columns, etc.)
 """
 
-# Commented out IPython magic to ensure Python compatibility.
-# %capture
-# Installing SHAP dependency
-# When importing this file as PY library, install this before importing lib
-# !pip install shap
-
-# Use below line if cannot install simply
-# !pip install git+https://github.com/openai/shap-e.git
-
-# Install Numerize to display large numbers in readable format
-# When importing this file as PY library, install this before importing lib
-# !pip install numerize
-
-# Installing SHAP from PY file for functions
+# Declaring a function to install packages not included in Colab
 
 import subprocess
 import sys
@@ -30,15 +17,15 @@ import sys
 def install(package):
   subprocess.check_call([sys.executable, "-m", "pip", "install", package])
 
+# Installing SHAP from PY file for functions
+# SHapley Additive exPlanations (SHAP) for Model debugging
+
 install('shap')
 
-import shap                         # SHapley Additive exPlanations (SHAP) for Model debugging
-
 # Installing Numerize to make large numbers human readable
+# Library to display large numbers in readable format
 
 install('numerize')
-
-from numerize import numerize     # Library to display large numbers in readable format
 
 # Commented out IPython magic to ensure Python compatibility.
 # Used to ignore the warning given as output of the code
@@ -54,6 +41,8 @@ from IPython.display import display   # Display dataframes nicely
 import matplotlib.pyplot as plt       # Matplotlib's PyPlot is used for plots and visualizations
 import seaborn as sns                 # SeaBorn is for advanced graphs or better style
 sns.set_style('darkgrid')
+import shap                           # SHapley Additive exPlanations (SHAP) for Model debugging
+from numerize import numerize     # Library to display large numbers in readable format
 
 # Magic Function that displays results inline after code block
 # %matplotlib inline
@@ -69,14 +58,6 @@ from sklearn.metrics import mean_absolute_error, mean_absolute_percentage_error,
 
 import scipy.stats as stats       # SciPy Stats contains probability distributions and statistical functions
 import math
-
-# Importing packages that need to be installed to Google Colab
-# Comment out imports for importing notebook as PY file
-
-# Progress bar for loops
-#for item in progress_bar(my_list):
-#    process(item)
-from fastprogress import master_bar, progress_bar
 
 # Import the TEST dataset
 # data = pd.read_csv('/content/drive/MyDrive/DSML/GL-Capstone-Houses-03-2023/Dataset+-+House+Price+Prediction+-+innercity.xlsx+-+innercity.csv')
@@ -631,6 +612,8 @@ Compare previous models to find cross validation
 # Function to chart most important features
 
 def getFeatureImportanceCharts(model, X_train, X_test):
+  X_train = X_train.columns.astype(str)
+  X_test = X_test.columns.astype(str)
   print('')
   print('===============')
   print('Features Sorted by Importance')
@@ -709,54 +692,3 @@ def getModelComparisonMetrics(model_comparison_table, model_number, model_title,
   display(model_comparison_table)
 
   return model_comparison_table
-
-"""# Testing the functions"""
-
-# Testing the Functions
-
-# --- INFO
-# getGeneralInfo(data)
-# getDataDescribe(data)
-
-# --- CLEANUP
-# getDateHandler(data, 'dayhours', '%Y%m%dT000000')
-
-# data = getNullHandler(data)
-
-# columnList = ['ceil', 'coast', 'condition', 'yr_built', 'long', 'total_area']   # List of columns that are of Object type
-# data = getRemoveRowsWithValue(data, columnList, '$')
-# data = getConvertObjectToNumber(data, columnList)
-
-# --- UNIVARIATE GRAPHS
-# getGeneralHistograms(data)
-# getGeneralBoxPlots(data)
-
-# --- BIVARIATE GRAPHS
-# getGeneralPairplot(data, 'price')
-# getGeneralGraphRegression(data, 'price')  # Regression compares against TARGET column
-# getGeneralHeatMap(data, True)
-
-# getGeneralBoxPlotSkew(data)
-
-# --- OUTLIERS
-
-
-# Removing columns that are of Number type but are either 1/0, categorical, date or location
-# excluded_columns = ['furnished', 'coast', 'sight', 'condition', 'quality', 'yr_built', 'yr_renovated', 'lat', 'long', 'zipcode']
-# data = getOutliersHandler(data, excluded_columns)
-# data.describe().T
-
-# --- CLUSTERING
-
-# getKMeansCurve(data, 10)
-
-# data = getKMeansLabels(data, 3)
-# data.head()
-
-# getGroupedScatterPlot(data, 'long', 'lat', 'k_means_labels')
-
-# --- Multicollinearity
-# Need to remove nulls before
-
-# correlated_columns = getMulticollHandler(data, .7)
-
